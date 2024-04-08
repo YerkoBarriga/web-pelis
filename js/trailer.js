@@ -23,9 +23,6 @@ function cerrarModal() {
 //Función para filtrar las categorías de los trabajos
 function verCategoria(cat){
     const items = document.getElementsByClassName("item");
-    for(let i=0; i < items.length;i++){
-        items[i].style.display = "none";
-    }
     if (cat ==="item") {
         console.log("entro todos");
         fetch(url)
@@ -37,11 +34,9 @@ function verCategoria(cat){
         })
         .then(data =>{
             console.log("entro al data");
-
-
             const peliculasContainer = document.querySelector('.galeria');
 
-                // Limpiar contenedor de películas
+            // Limpiar contenedor de películas
             peliculasContainer.innerHTML = "";
             // el metodo sort nos devuelve otro array
             // metodo localesCompare para comparar de orden alfabetica-> devulve un numero -1,0,1
@@ -138,6 +133,9 @@ function verCategoria(cat){
             const peliculasContainer = document.querySelector('.galeria');
             // se utiliza el Objeto Date
             const listar = data.sort((a,b) => new Date(b.Released)  - new Date(a.Released));
+            
+                // Limpiar contenedor de películas
+            peliculasContainer.innerHTML = "";
             console.log(listar);
             listar.forEach(element => {
                 console.log("entro el foreach");
@@ -170,14 +168,16 @@ function verCategoria(cat){
     }
 
     const links = document.querySelectorAll(".peliculas nav a");
-   for (let i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.length; i++) {
         links[i].className= "";
     }
     const itemSeleccionado = document.getElementById(cat);
     itemSeleccionado.className = "borde";
 } 
-
+//llamo a mi funcion para que ya este cargado mis pelis por orden alfabetico.
 verCategoria("item");
+
+
 
 // Función asíncrona para buscar películas en el JSON
 async function buscarPeliculas(termino) {
